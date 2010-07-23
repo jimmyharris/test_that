@@ -13,6 +13,7 @@
 #' @param desc test name.  Names should be kept as brief as possible, as they
 #'   are often used as line prefixes.
 #' @param code test code containing expectations
+#' @export
 #' @examples
 #' test_that("trigonometric functions match identies", {
 #'   expect_that(sin(pi / 4), equals(1 / sqrt(2)))
@@ -29,7 +30,7 @@ test_that <- function(desc, code) {
   test_reporter()$start_test(desc)
   
   env <- new.env(parent = globalenv())  
-  res <- try_capture_stack(substitute(code), env)
+  res <- suppressMessages(try_capture_stack(substitute(code), env))
   
   if (inherits(res, "error")) {
     traceback <- create_traceback(res$calls)

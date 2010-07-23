@@ -6,6 +6,7 @@
 #'
 #' @param path path to tests
 #' @param reporter reporter to use
+#' @export
 test_dir <- function(path, reporter = "summary") {    
   reporter <- find_reporter(reporter)
   source_dir(path, "^helper.*\\.[rR]$")
@@ -23,6 +24,8 @@ test_dir <- function(path, reporter = "summary") {
 #' @param pattern regular expression used to filter files
 #' @param chdir change working directory to path?
 #' @keywords internal
+#' @export
+#' @usage source_dir(path, pattern="\\\\.[rR]$", chdir=TRUE)
 source_dir <- function(path, pattern = "\\.[rR]$", chdir = TRUE) {
   files <- sort(dir(path, pattern, full.names = TRUE))
   
@@ -33,6 +36,7 @@ source_dir <- function(path, pattern = "\\.[rR]$", chdir = TRUE) {
 #' 
 #' @param path path to file
 #' @param reporter reporter to use
+#' @export
 test_file <- function(path, reporter = "summary") {    
   reporter <- find_reporter(reporter)
   with_reporter(reporter$clone(), source(path))
